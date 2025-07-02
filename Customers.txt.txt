@@ -1,0 +1,79 @@
+Customers.txt
+
+1. To Create the File
+touch customers.txt
+
+2.To insert data
+cat > customers.txt
+
+180607, Rahul Varma, 12.12.22, Savings, 30000
+180608, Sita Raman, 12.12.22, Joint, 50000
+190607, Sheetal Patil, 20.07.22, Current, 40000
+190617, Pooja Patil, 04.08.22, Salary, 70000
+200607, Rahul Sharma, 20.08.22, Savings, 20000
+210617, Pooja Srikari, 20.08.22, Salary, 25000
+210607, Pooja Rewa, 20.08.22, Joint, 35000
+210527, Dan Stewart, 04.08.22, Current, 35000
+280707, Sia R, 21.09.23, Savings, 30000
+220888, Sonali C, 01.05.23, Savings, 15000
+
+or
+
+cat > customers.txt << EOF
+180607, Rahul Varma, 12.12.22, Savings, 30000
+180608, Sita Raman, 12.12.22, Joint, 50000
+190607, Sheetal Patil, 20.07.22, Current, 40000
+190617, Pooja Patil, 04.08.22, Salary, 70000
+200607, Rahul Sharma, 20.08.22, Savings, 20000
+210617, Pooja Srikari, 20.08.22, Salary, 25000
+210607, Pooja Rewa, 20.08.22, Joint, 35000
+210527, Dan Stewart, 04.08.22, Current, 35000
+280707, Sia R, 21.09.23, Savings, 30000
+220888, Sonali C, 01.05.23, Savings, 15000 EOF
+
+
+3.TO VIEW CONTENT
+cat customers.txt
+
+4.UNIX command to display the customers having balance greater than or equal to 30000.
+
+awk -F", *" '$5 >= 30000' customers.txt
+
+ANS:
+180607, Rahul Varma, 12.12.22, Savings, 30000
+180608, Sita Raman, 12.12.22, Joint, 50000
+190607, Sheetal Patil, 20.07.22, Current, 40000
+190617, Pooja Patil, 04.08.22, Salary, 70000
+210607, Pooja Rewa, 20.08.22, Joint, 35000
+210527, Dan Stewart, 04.08.22, Current, 35000
+280707, Sia R, 21.09.23, Savings, 30000
+
+
+5.UNIX command to display the total balance of customers having Joint account
+
+awk -F", *" 'tolower($4) == "joint" { sum += $5 } END { print "Total Joint Account Balance:", sum }' customers.txt
+
+ANS:
+Total Joint Account Balance: 85000
+
+
+6.UNIX command to search for a customers having account number 222635 and 180607
+
+
+grep -E '^222635|^180607' customers.txt
+or
+awk -F", *" '$1 == "222635" || $1 == "180607"' customers.txt
+
+ANS:
+180607, Rahul Varma, 12.12.22, Savings, 30000
+222635, John Doe, 01.01.23, Savings, 45000
+
+
+7.UNIX command to display the average balance of all customers except those customers having Joint account
+
+
+awk -F", *" 'tolower($4) != "joint" { sum += $5; count++ } END { if (count > 0) print "Average Balance (excluding Joint accounts):", sum / count; else print "No matching records." }' customers.txt
+
+ANS:
+Average Balance (excluding Joint accounts): 31250
+
