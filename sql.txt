@@ -1,0 +1,176 @@
+Create an customer Table with following Attributes (Columns)
+
+1. Customer SSN ID: A Numeric value for Employee ID (Primary key)
+
+2. First Name: A text value for customer name(Maximum 50 characters)
+
+3. Last Name: A text value for customer name(Maximum 50 characters)
+
+4. Email: A text field to capture the Email of an customer.
+
+5. Date Of Birth: A Date value (YYYY-MM-DD)
+
+6. Address: A text value to capture street, city details(Maximum 100 characters)
+
+7. Contact Number: Numeric value Maximum 10 digits.
+
+After Successful Creation of Table insert minimum 10 Demo records
+
+
+CREATE TABLE Customer (
+    CustomerSSNID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    DateOfBirth DATE,
+    Address VARCHAR(100),
+    ContactNumber BIGINT CHECK(LENGTH(ContactNumber) = 10)
+);
+
+
+INSERT INTO Customer VALUES
+(1001, 'Rahul', 'Varma', 'rahul.varma@example.com', '1990-05-15', '123 MG Road, Pune', 9876543210),
+(1002, 'Sita', 'Raman', 'sita.raman@example.com', '1988-09-10', '45 Nehru Street, Mumbai', 9123456789),
+(1003, 'Amit', 'Shah', 'amit.shah@example.com', '1985-03-25', '88 Gandhi Chowk, Delhi', 9988776655),
+(1004, 'Pooja', 'Patil', 'pooja.patil@example.com', '1993-07-20', '22 Shaniwar Peth, Nashik', 9090909090),
+(1005, 'Sheetal', 'Joshi', 'sheetal.joshi@example.com', '1992-11-05', '10 KP Road, Bhopal', 9000011111),
+(1006, 'Ravi', 'Deshmukh', 'ravi.deshmukh@example.com', '1991-02-28', '3 Civil Lines, Nagpur', 9443322110),
+(1007, 'Neha', 'Kumar', 'neha.kumar@example.com', '1996-06-12', '75 Ashok Nagar, Jaipur', 9338899776),
+(1008, 'Suresh', 'Mehta', 'suresh.mehta@example.com', '1987-04-14', '7 Laxmi Rd, Ahmedabad', 9876512345),
+(1009, 'Anjali', 'Nair', 'anjali.nair@example.com', '1994-08-09', '1 Residency Rd, Bengaluru', 9123450987),
+(1010, 'Vikram', 'Kapoor', 'vikram.kapoor@example.com', '1989-12-18', '55 Connaught Pl, Delhi', 9812345670);
+
+
+After Successful insertion of records financial data analyst, will be
+
+able to retrieve customer Details from customer
+
+table by there customer id
+
+
+SELECT * 
+FROM Customer
+WHERE CustomerSSNID = 1003;
+
+
+After Successful insertion of customer records.
+
+customer will be able to update the personal contact details
+
+The query result should contain the following attributes
+
+Customer SSN id | name(first_name+last name) |
+
+Email Phone | address
+
+Ans: update
+
+UPDATE Customer
+SET 
+    Email = 'new.amit.shah@example.com',
+    ContactNumber = 9876540000,
+    Address = '99 New Market Road, Delhi'
+WHERE 
+    CustomerSSNID = 1003;
+
+2.retrive updated customers details
+
+SELECT 
+    CustomerSSNID,
+    CONCAT(FirstName, ' ', LastName) AS Name,
+    Email,
+    ContactNumber AS Phone,
+    Address
+FROM 
+    Customer
+WHERE 
+    CustomerSSNID = 1003;
+
+
+Create an Customer transaction Table with following Attributes (Columns)
+
+Enter the values for input fields (on Screen)
+
+Customer id (Primary key), Customer Name, Account Number, IFSC code, Account balance, Adhara card No., Pan Card No, Contact Number
+
+After Successful Creation of Table insert minimum 10
+
+records
+
+ans:
+CREATE TABLE CustomerTransaction (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    AccountNumber BIGINT,
+    IFSCCode VARCHAR(20),
+    AccountBalance DECIMAL(12,2),
+    AadharCardNo CHAR(12),
+    PanCardNo VARCHAR(10),
+    ContactNumber BIGINT
+);
+
+
+INSERT INTO CustomerTransaction VALUES
+(1001, 'Rahul Varma', 123456789012, 'HDFC0001234', 35000.50, '123456789012', 'ABCDE1234F', 9876543210),
+(1002, 'Sita Raman', 123456789013, 'ICIC0005678', 55000.00, '234567890123', 'BCDEA2345G', 9123456789),
+(1003, 'Amit Shah', 123456789014, 'SBIN0001122', 15000.75, '345678901234', 'CDEAB3456H', 9988776655),
+(1004, 'Pooja Patil', 123456789015, 'BOI0007890', 42000.00, '456789012345', 'DEFBC4567I', 9090909090),
+(1005, 'Sheetal Joshi', 123456789016, 'AXIS0003211', 67000.25, '567890123456', 'EFGCD5678J', 9000011111),
+(1006, 'Ravi Deshmukh', 123456789017, 'PNB0006543', 29500.00, '678901234567', 'FGHDE6789K', 9443322110),
+(1007, 'Neha Kumar', 123456789018, 'UBIN0009988', 87000.80, '789012345678', 'GHIEF7890L', 9338899776),
+(1008, 'Suresh Mehta', 123456789019, 'IOBA0004455', 10000.00, '890123456789', 'HIJFG8901M', 9876512345),
+(1009, 'Anjali Nair', 123456789020, 'CANR0007766', 22000.60, '901234567890', 'IJKGH9012N', 9123450987),
+(1010, 'Vikram Kapoor', 123456789021, 'KARB0003344', 49000.90, '012345678901', 'JKLHI0123O', 9812345670);
+
+
+
+
+
+
+Bank employee will be able to retrieve customer account details from transactional details and personal details from customer table (Customer id, Customer Name, Account Number IFSC code, Account balance, Adhara card No. Pan Card No, Date Of Birth (DD-MM YYYY), Email Address Contact Number)
+
+ans
+ SELECT 
+    ct.CustomerID,
+    ct.CustomerName,
+    ct.AccountNumber,
+    ct.IFSCCode,
+    ct.AccountBalance,
+    ct.AadharCardNo,
+    ct.PanCardNo,
+    FORMAT(c.DateOfBirth, 'dd-MM-yyyy') AS DateOfBirth,
+    c.Email,
+    ct.ContactNumber
+FROM 
+    CustomerTransaction ct
+INNER JOIN 
+    Customer c ON ct.CustomerID = c.CustomerSSNID;
+
+
+
+After Successful transaction process, records in customer transactions table will be updated And customer will able to check the updated account balance
+
+(Customer id name(first_name+last_name) | Email | Account Balance)
+
+1. to update account balance
+UPDATE CustomerTransaction
+SET AccountBalance = AccountBalance - 5000
+WHERE CustomerID = 1003;
+
+
+
+2.Retreive updated account info
+
+
+SELECT 
+    ct.CustomerID,
+    CONCAT(c.FirstName, ' ', c.LastName) AS Name,
+    c.Email,
+    ct.AccountBalance
+FROM 
+    CustomerTransaction ct
+INNER JOIN 
+    Customer c ON ct.CustomerID = c.CustomerSSNID
+WHERE 
+    ct.CustomerID = 1003;
+
